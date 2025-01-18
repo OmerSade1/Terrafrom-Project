@@ -1,4 +1,5 @@
 module "eks_blueprints_addons" {
+  depends_on = [ helm_release.argocd ]
   source  = "aws-ia/eks-blueprints-addons/aws"
   version = "~> 1.0"
 
@@ -10,15 +11,6 @@ module "eks_blueprints_addons" {
 
   eks_addons = {
     aws-ebs-csi-driver = {
-      most_recent = true
-    }
-    coredns = {
-      most_recent = true
-    }
-    vpc-cni = {
-      most_recent = true
-    }
-    kube-proxy = {
       most_recent = true
     }
   }

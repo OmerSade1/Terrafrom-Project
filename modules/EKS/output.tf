@@ -20,6 +20,10 @@ output "oidc_provider_arn" {
   value       = aws_iam_openid_connect_provider.eks.arn
 }
 
+output "oidc_provider_url" {
+  value = aws_iam_openid_connect_provider.eks.url
+}
+
 output "eks_region" {
   value = data.aws_region.current.name
 }
@@ -29,4 +33,19 @@ output "eks_security_group_id" {
   description = "The security group ID associated with the EKS cluster"
 }
 
+output "node_security_group_id" {
+  value = module.eks.node_security_group_id
+}
 
+
+output "node_karpenter_role_name" {
+  value = module.karpenter.node_iam_role_name
+}
+
+output "karpenter_service_account_name" {
+  value = module.karpenter.service_account
+}
+
+output "karpenter_queue_name" {
+   value = module.karpenter.queue_name
+}

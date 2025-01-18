@@ -1,4 +1,5 @@
 module "acm" {
+  depends_on = [ module.eks_blueprints_addons ]
   source  = "terraform-aws-modules/acm/aws"
   version = "5.1.1"
 

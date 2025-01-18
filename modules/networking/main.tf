@@ -30,14 +30,21 @@ module "vpc" {
   public_subnets  = local.public_subnet_cidrs
 
   enable_nat_gateway = true
-  single_nat_gateway = false
-  enable_vpn_gateway = true
+  single_nat_gateway = true
 
-  tags = {
+  public_subnet_tags = {
     Terraform = "true"
     Environment = var.environment
     "kubernetes.io/role/elb"           = "1"
     "kubernetes.io/cluster/my-cluster-eks" = "owned"
+  }
+
+  private_subnet_tags = {
+    Terraform = "true"
+    Environment = var.environment
+    "kubernetes.io/role/internal-elb" = "1"
+    "kubernetes.io/cluster/my-cluster-eks" = "owned"
+    "karpenter.sh/discovery" = "my-cluster-eks"
   }
 }
 

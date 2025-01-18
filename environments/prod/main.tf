@@ -34,8 +34,8 @@ module "karpenter" {
 }
  
 module "ArgoCD" {
-  depends_on = [ module.karpenter ]
   source = "../../modules/ArgoCD"
+  depends_on = [ module.eks ]
   cluster_name = module.eks.cluster_name
   cluster_version = module.eks.cluster_version
   cluster_endpoint = module.eks.cluster_endpoint
@@ -57,4 +57,3 @@ module "database" {
   region = var.region
   cidr_block = var.cidr_block
 }
-

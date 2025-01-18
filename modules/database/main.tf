@@ -1,6 +1,6 @@
 # Fetch the existing secret from Secrets Manager
 data "aws_secretsmanager_secret" "rds_secret" {
-  name = "mysql-secret-db"
+  name = "mysql/secrets"
 }
 
 data "aws_secretsmanager_secret_version" "rds_secret_version" {
@@ -12,6 +12,7 @@ locals {
 }
 
 module "db" {
+  depends_on = [ helm_release.external_secrets ]
   source = "terraform-aws-modules/rds/aws"
 
   identifier         = "db-mysql"
@@ -27,9 +28,9 @@ module "db" {
   
   iam_database_authentication_enabled = true
 
-  db_name = local.db_credentials["db_name"]
+  db_name = local.db_credentials["DB_NAME"]
   username = local.db_credentials["username"]
-  password = local.db_credentials["password"]
+  password = local.db_credentials["DB_PASSWORD"]
 
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
 
@@ -43,6 +44,11 @@ module "db" {
 
   family                = "mysql8.4"
   major_engine_version  = "8.4"
+
+  create_db_option_group = false
+
+  create_db_parameter_group = false
+
 
 }
 
