@@ -4,4 +4,3 @@ terraform.tfstate.backup
 *.tfstate.*
 .terraform/
 .terraform.lock.hcl
-# aws eks update-kubeconfig --region us-east-1 --name my-cluster-eks --role-arn arn:aws:iam::058264527754:role/_AdminRole
