@@ -33,7 +33,6 @@ variable "eks_region" {
 }
 
 variable "zone_id" {
-  description = "my zone_id"
   type = string
 }
 
